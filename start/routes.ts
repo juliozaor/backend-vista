@@ -23,4 +23,4 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async () => {
   return { hello: 'world' }
 })
-Route.get('api/v1/vista', 'JsonVistasController.index')
+Route.get('api/v1/vista', 'JsonVistasController.index').middleware('auth')
