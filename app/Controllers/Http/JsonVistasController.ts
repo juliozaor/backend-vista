@@ -37,7 +37,7 @@ data.items.forEach(campo => {
       tipoDocRepLegal: campo.tipo_doc_rep_legal,
       numeroDocuRepresentante: campo.numero_docu_representante,
       nombreRepresentante: campo.nombre_representante,
-      apellidoRerepresentante: campo.apellido_representante,
+      apellidoRepresentante: campo.apellido_representante,
       correoElectronicoRepres: campo.correo_electronico_repres
    }
   }
