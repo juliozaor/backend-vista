@@ -21,8 +21,29 @@ export default class JsonVistasController {
     if(documento){
       /* const arr = data.map(elemento => Object.entries(elemento));
       console.log(arr); */
+let columna: any;
+
+data.items.forEach(campo => {
+  if(campo.numero_documento == documento){        
+    columna = {
+      numeroDocumento: campo.numero_documento,
+      razonSocial: campo.razon_social,
+      vigilado: campo.vigilado,
+      direccion: campo.direccion,
+      idMunicipio: campo.id_municipio,
+      nombreMunicipio: campo.nombre_municipio,
+      idDepartamento: campo.id_departamento,
+      nombreDepto: campo.nombre_depto,
+      tipoDocRepLegal: campo.tipo_doc_rep_legal,
+      numeroDocuRepresentante: campo.numero_docu_representante,
+      nombreRepresentante: campo.nombre_representante,
+      apellidoRrepresentante: campo.apellido_representante,
+      correoElectronicoRepres: campo.correo_electronico_repres
+   }
+  }
+});
       
-      const columna = data.items.find(campo => campo.numero_documento == documento)
+   
       return ctx.response.json(columna);
 
     }
