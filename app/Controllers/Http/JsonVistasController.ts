@@ -26,8 +26,10 @@ export default class JsonVistasController {
       data.items.forEach(campo => {
         if (campo.numero_documento == documento) {
           columna = {
+            tipoDoc: 'NIT',
             numeroDocumento: campo.numero_documento,
             razonSocial: campo.razon_social,
+            telefono:'',
             correoElectronico: campo.correo_electronico,
             correoPrincipalNotificacion: campo.correo_principal_notificacion,
             correoOpcionalNotificacion: campo.correo_opcional_notificacion,
