@@ -12,8 +12,6 @@ export default class Autorization {
     if (token !== Env.get('TOKEN')){
       throw new TokenValidoException('Token inválido')
     }
-
-    //ServicioAutenticacionJWT.verificarToken(cabeceraAutenticacion) 
     await next()
   }
 }
