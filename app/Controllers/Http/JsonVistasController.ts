@@ -2,6 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
 import path from 'path';
 import fs from 'fs';
+const oracledb = require('oracledb');
 
 export default class JsonVistasController {
   public async index(ctx: HttpContextContract) {
@@ -57,4 +58,30 @@ export default class JsonVistasController {
 
     return ctx.response.json(data);
   }
+
+
+
+
+  public async  probarconexion() {
+    console.log("Result is:", process.env.ORACLE_PASSWORD);
+   // oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
+
+const mypw =process.env.ORACLE_PASSWORD;
+    const connection = await oracledb.getConnection({
+        user          : "USU_CONSULTA",
+        password      : "USU_CONSULTA2023",  // contains the hr schema password
+        connectString : "172.16.2.55:1521/VIGIAPRO.supertransporte.local"
+      
+    });
+
+
+    //const result = await connection.execute(`SELECT city FROM locations`);
+   
+    
+
+    await connection.close();   // Always close connections
+    return "conecto";
+}
+
+
 }
