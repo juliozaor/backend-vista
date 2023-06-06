@@ -1,80 +1,17 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Database from '@ioc:Adonis/Lucid/Database'
-import path from 'path';
-import fs from 'fs';
+
 const oracledb = require('oracledb');
 
 export default class JsonVistasController {
   
-  public async index1(ctx: HttpContextContract) {
-
-    const { prueba, documento } = ctx.request.all()
-
-    if (prueba && prueba === 'true') {
-      const vista = await Database.rawQuery('select * from vigia.VW_INFORMACION_VIGILADO');
-      return vista
-    }
-  
-
-    const filePath = path.join(__dirname, '../../', 'Servicios', 'vista.json');
-
-    const jsonData = fs.readFileSync(filePath, 'utf-8');
-    const data = JSON.parse(jsonData);
-
-    if (documento) {
-      /* const arr = data.map(elemento => Object.entries(elemento));
-      console.log(arr); */
-      let columna: any;
-
-      data.items.forEach(campo => {
-        if (campo.numero_documento == documento) {
-          columna = {
-            tipoDoc: 'NIT',
-            numeroDocumento: campo.numero_documento,
-            razonSocial: campo.razon_social,
-            telefono:'',
-            correoElectronico: campo.correo_electronico,
-            correoPrincipalNotificacion: campo.correo_principal_notificacion,
-            correoOpcionalNotificacion: campo.correo_opcional_notificacion,
-            vigilado: campo.vigilado,
-            direccion: campo.direccion,
-            idMunicipio: campo.id_municipio,
-            nombreMunicipio: campo.nombre_municipio,
-            idDepartamento: campo.id_departamento,
-            nombreDepto: campo.nombre_depto,
-            tipoDocRepLegal: campo.tipo_doc_rep_legal,
-            numeroDocuRepresentante: campo.numero_docu_representante,
-            nombreRepresentante: campo.nombre_representante,
-            apellidoRepresentante: campo.apellido_representante,
-            correoElectronicoRepres: campo.correo_electronico_repres
-          }
-        }
-      });
-
-
-      return ctx.response.json(columna);
-
-    }
-
-
-
-    return ctx.response.json(data);
-  }
-
-
-
-
   public async  index(ctx: HttpContextContract) {
     console.log("Result is:", process.env.ORACLE_PASSWORD);
    // oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
    const { prueba, documento } = ctx.request.all()
 
-
-//const mypw =process.env.ORACLE_PASSWORD;
-
 oracledb.initOracleClient();
 
-console.log("Result is2:", prueba);
+console.log("Result is3:", prueba);
 
     const connection = await oracledb.getConnection({
         user          : "USU_CONSULTA",
@@ -93,11 +30,33 @@ console.log("Result is2:", prueba);
       });
    
     console.log("Result is4:", process.env.ORACLE_PASSWORD);
-
-  // Always close connections
  
   await connection.close();   
-    return vista.rows[0]
+
+    return {
+         
+        numeroDocumento:(vista.rows[0].NUMERO_DOCUMENTO)??'',
+        razonSocial:(vista.rows[0].RAZON_SOCIAL)??'',
+        correoElectronico:(vista.rows[0].CORREO_ELECTRONICO)??'',
+        correoPrincipalNotificacion:(vista.rows[0].CORREO_PRINCIPAL_NOTIFICACION)??'',
+        correoOpcionalNotificacion:(vista.rows[0].CORREO_OPCIONAL_NOTIFICACION)??'',
+        vigilado:(vista.rows[0].VIGILADO)??'',
+        direccion:(vista.rows[0].DIRECCION)??'',
+        telefono:(vista.rows[0].TELEFONO)??'',
+        numeroFax:(vista.rows[0].NUMERO_FAX)??'',
+        direccionNotificacion:(vista.rows[0].DIRECCION_NOTIFICACION)??'',
+        idMunicipio:(vista.rows[0].ID_MUNICIPIO)??'',
+        nombreMunicipio:(vista.rows[0].NOMBRE_MUNICIPIO)??'',
+        idDepartamento:(vista.rows[0].ID_DEPARTAMENTO)??'',
+        nombreDepto:(vista.rows[0].NOMBRE_DEPTO)??'',
+        tipoDocRepLegal:(vista.rows[0].TIPO_DOC_REP_LEGAL)??'',
+        numeroDocuRepresentante:(vista.rows[0].NUMERO_DOCU_REPRESENTANTE)??'',
+        nombreRepresentante:(vista.rows[0].NOMBRE_REPRESENTANTE)??'',
+        apellidoRepresentante:(vista.rows[0].APELLIDO_REPRESENTANTE)??'',
+        correoElectronicoRepres:(vista.rows[0].CORREO_ELECTRONICO_REPRES)??'',
+        telefonoVigilado:(vista.rows[0].TELEFONO_VIGILADO)??'',
+
+    }
     
     //return "conecto";
 }
