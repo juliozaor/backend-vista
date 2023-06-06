@@ -6,9 +6,7 @@ const oracledb = require('oracledb');
 
 export default class JsonVistasController {
   public async index(ctx: HttpContextContract) {
-    let clientOpts = {};
-    clientOpts = { libDir: '/var/pesv/instantclient_19_19' };
-    oracledb.initOracleClient(clientOpts);
+
     const { prueba, documento } = ctx.request.all()
 
     if (prueba && prueba === 'true') {
@@ -68,6 +66,9 @@ export default class JsonVistasController {
     console.log("Result is:", process.env.ORACLE_PASSWORD);
    // oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
    let clientOpts = {};
+
+
+//const mypw =process.env.ORACLE_PASSWORD;
 clientOpts = { libDir: '/var/pesv/instantclient_19_19' };
 oracledb.initOracleClient(clientOpts);
 
