@@ -65,8 +65,14 @@ export default class JsonVistasController {
   public async  probarconexion() {
     console.log("Result is:", process.env.ORACLE_PASSWORD);
    // oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
+   let clientOpts = {};
 
-const mypw =process.env.ORACLE_PASSWORD;
+
+//const mypw =process.env.ORACLE_PASSWORD;
+clientOpts = { libDir: '/var/pesv/instantclient_19_19' };
+oracledb.initOracleClient(clientOpts);
+
+
     const connection = await oracledb.getConnection({
         user          : "USU_CONSULTA",
         password      : "USU_CONSULTA2023",  // contains the hr schema password
@@ -80,7 +86,10 @@ const mypw =process.env.ORACLE_PASSWORD;
     
 
     await connection.close();   // Always close connections
-    return "conecto";
+    const vista = await Database.rawQuery('select * from vigia.VW_INFORMACION_VIGILADO');
+      return vista
+    
+    //return "conecto";
 }
 
 
