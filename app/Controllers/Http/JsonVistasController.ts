@@ -33,7 +33,7 @@ console.log("Result is3:", prueba);
  
   await connection.close();  
   
-  if(vista.rows[0].length <= 0) {
+  if(vista.rows.length <= 0) {
     return ctx.response.status(401).send({
       mensaje: `No se encontraron datos del vigilado`,
       error: 2
