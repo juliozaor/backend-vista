@@ -75,10 +75,12 @@ export default class JsonVistasController {
 oracledb.initOracleClient();
 
 
+
     const connection = await oracledb.getConnection({
         user          : "USU_CONSULTA",
         password      : "USU_CONSULTA2023",  // contains the hr schema password
-        connectString : "172.16.2.55:1521/VIGIAPRO.supertransporte.local"
+        connectString : "172.16.2.55:1521/VIGIAPRO.supertransporte.local",
+        encoding : 'UTF-8'
       
     });
 
