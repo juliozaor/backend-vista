@@ -31,7 +31,14 @@ console.log("Result is3:", prueba);
    
     console.log("Result is4:", process.env.ORACLE_PASSWORD);
  
-  await connection.close();   
+  await connection.close();  
+  
+  if(vista.rows[0].length <= 0) {
+    return ctx.response.status(401).send({
+      mensaje: `No se encontraron datos del vigilado`,
+      error: 2
+    })
+  }
 
     return {
          
