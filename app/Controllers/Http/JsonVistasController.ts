@@ -85,7 +85,7 @@ console.log("Result is2:", prueba);
     });
 
     console.log("Result is3:", process.env.ORACLE_PASSWORD);
-    let consulta="select NUMERO_DOCUMENTO as numeroDocumento, * from vigia.VW_INFORMACION_VIGILADO where NUMERO_DOCUMENTO='"+documento+"'";
+    let consulta="select NUMERO_DOCUMENTO as numeroDocumento from vigia.VW_INFORMACION_VIGILADO where NUMERO_DOCUMENTO='"+documento+"'";
     const vista = await connection.execute(consulta,
       [], // no binds
       {
