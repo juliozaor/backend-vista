@@ -64,17 +64,17 @@ export default class JsonVistasController {
 
 
 
-  public async  probarconexion() {
+  public async  probarconexion(ctx: HttpContextContract) {
     console.log("Result is:", process.env.ORACLE_PASSWORD);
    // oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
-
+   const { prueba, documento } = ctx.request.all()
 
 
 //const mypw =process.env.ORACLE_PASSWORD;
 
 oracledb.initOracleClient();
 
-console.log("Result is2:", process.env.ORACLE_PASSWORD);
+console.log("Result is2:", prueba);
 
     const connection = await oracledb.getConnection({
         user          : "USU_CONSULTA",
@@ -85,7 +85,8 @@ console.log("Result is2:", process.env.ORACLE_PASSWORD);
     });
 
     console.log("Result is3:", process.env.ORACLE_PASSWORD);
-    const vista = await connection.execute(`select * from vigia.VW_INFORMACION_VIGILADO`);
+    let consulta="select * from vigia.VW_INFORMACION_VIGILADO where NUMERO_DOCUMENTO='"+documento+"'";
+    const vista = await connection.execute(consulta);
    
     console.log("Result is4:", process.env.ORACLE_PASSWORD);
 
