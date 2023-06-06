@@ -5,36 +5,50 @@ const oracledb = require('oracledb');
 export default class JsonVistasController {
   
   public async  index(ctx: HttpContextContract) {
-    console.log("Result is:", process.env.ORACLE_PASSWORD);
-   // oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
-   const { prueba, documento } = ctx.request.all()
+   const { documento } = ctx.request.all()
+   let connection
+   try {
+     oracledb.initOracleClient();
+     
+         connection = await oracledb.getConnection({
+             user          : "USU_CONSULTA",
+             password      : "USU_CONSULTA2023",  // contains the hr schema password
+             connectString : "172.16.2.55:1521/VIGIAPRO.supertransporte.local",
+             encoding : 'UTF-8'
+           
+         });
+    
+   } catch (error) {
+    return ctx.response.status(500).send({
+      mensaje: `Error de conexión a vista`,
+      error: 4
+    })
+   }
 
-oracledb.initOracleClient();
 
-console.log("Result is3:", prueba);
 
-    const connection = await oracledb.getConnection({
-        user          : "USU_CONSULTA",
-        password      : "USU_CONSULTA2023",  // contains the hr schema password
-        connectString : "172.16.2.55:1521/VIGIAPRO.supertransporte.local",
-        encoding : 'UTF-8'
-      
-    });
 
-    console.log("Result is3:", process.env.ORACLE_PASSWORD);
     let consulta="select * from vigia.VW_INFORMACION_VIGILADO where NUMERO_DOCUMENTO='"+documento+"'";
-    const vista = await connection.execute(consulta,
-      [], // no binds
-      {
-          outFormat: oracledb.OBJECT
-      });
+    let vista
+    try {
+      vista = await connection.execute(consulta,
+        [], // no binds
+        {
+            outFormat: oracledb.OBJECT
+        });
+      
+    } catch (error) {
+      await connection.close();  
+      return ctx.response.status(500).send({
+        mensaje: `Error de procesamiento de vista`,
+        error: 3
+      })
+    }
    
-    console.log("Result is4:", process.env.ORACLE_PASSWORD);
- 
   await connection.close();  
   
   if(vista.rows.length <= 0) {
-    return ctx.response.status(401).send({
+    return ctx.response.status(400).send({
       mensaje: `No se encontraron datos del vigilado`,
       error: 2
     })
