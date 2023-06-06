@@ -97,7 +97,7 @@ console.log("Result is2:", prueba);
   // Always close connections
  
   await connection.close();   
-    return vista.rows
+    return vista.rows[0]
     
     //return "conecto";
 }
