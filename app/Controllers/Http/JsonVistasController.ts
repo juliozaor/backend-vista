@@ -84,14 +84,15 @@ console.log("Result is2:", process.env.ORACLE_PASSWORD);
       
     });
 
-
-    //const result = await connection.execute(`SELECT city FROM locations`);
-   
     console.log("Result is3:", process.env.ORACLE_PASSWORD);
+    const vista = await connection.execute(`select * from vigia.VW_INFORMACION_VIGILADO`);
+   
+    console.log("Result is4:", process.env.ORACLE_PASSWORD);
 
-    await connection.close();   // Always close connections
-    const vista = await Database.rawQuery('select * from vigia.VW_INFORMACION_VIGILADO');
-      return vista
+  // Always close connections
+ 
+  await connection.close();   
+    return vista
     
     //return "conecto";
 }
