@@ -5,14 +5,18 @@ import fs from 'fs';
 const oracledb = require('oracledb');
 
 export default class JsonVistasController {
+  
   public async index(ctx: HttpContextContract) {
 
     const { prueba, documento } = ctx.request.all()
 
-    if (prueba && prueba === 'true') {
+   /* if (prueba && prueba === 'true') {
       const vista = await Database.rawQuery('select * from vigia.VW_INFORMACION_VIGILADO');
       return vista
-    }
+    }*/
+    console.log(prueba);
+    const vista = this.probarconexion();
+    console.log(vista);
 
     const filePath = path.join(__dirname, '../../', 'Servicios', 'vista.json');
 
