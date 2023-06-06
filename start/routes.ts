@@ -24,4 +24,3 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 Route.get('api/v1/vista', 'JsonVistasController.index').middleware('auth')
-Route.get('api/v1/vista1', 'JsonVistasController.probarconexion')

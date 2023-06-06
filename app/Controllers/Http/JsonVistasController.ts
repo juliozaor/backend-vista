@@ -6,7 +6,7 @@ const oracledb = require('oracledb');
 
 export default class JsonVistasController {
   
-  public async index(ctx: HttpContextContract) {
+  public async index1(ctx: HttpContextContract) {
 
     const { prueba, documento } = ctx.request.all()
 
@@ -64,7 +64,7 @@ export default class JsonVistasController {
 
 
 
-  public async  probarconexion(ctx: HttpContextContract) {
+  public async  index(ctx: HttpContextContract) {
     console.log("Result is:", process.env.ORACLE_PASSWORD);
    // oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
    const { prueba, documento } = ctx.request.all()
