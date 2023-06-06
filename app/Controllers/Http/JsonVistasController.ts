@@ -74,7 +74,7 @@ export default class JsonVistasController {
 
 oracledb.initOracleClient();
 
-
+console.log("Result is2:", process.env.ORACLE_PASSWORD);
 
     const connection = await oracledb.getConnection({
         user          : "USU_CONSULTA",
@@ -87,7 +87,7 @@ oracledb.initOracleClient();
 
     //const result = await connection.execute(`SELECT city FROM locations`);
    
-    
+    console.log("Result is3:", process.env.ORACLE_PASSWORD);
 
     await connection.close();   // Always close connections
     const vista = await Database.rawQuery('select * from vigia.VW_INFORMACION_VIGILADO');
