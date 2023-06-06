@@ -10,13 +10,11 @@ export default class JsonVistasController {
 
     const { prueba, documento } = ctx.request.all()
 
-   /* if (prueba && prueba === 'true') {
+    if (prueba && prueba === 'true') {
       const vista = await Database.rawQuery('select * from vigia.VW_INFORMACION_VIGILADO');
       return vista
-    }*/
-    console.log(prueba);
-    const vista = this.probarconexion();
-    console.log(vista);
+    }
+  
 
     const filePath = path.join(__dirname, '../../', 'Servicios', 'vista.json');
 
