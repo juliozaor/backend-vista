@@ -13,7 +13,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 |
 */
 export default class TokenValidoException extends Exception {
-   public async handle(error: this, ctx: HttpContextContract) {
+   public async handle(ctx: HttpContextContract) {
         ctx.response.status(401).send({
             mensaje: `Token inválido`,
             estado: 401,
